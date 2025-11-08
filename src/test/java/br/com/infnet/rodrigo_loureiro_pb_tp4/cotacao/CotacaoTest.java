@@ -46,9 +46,9 @@ public class CotacaoTest {
     @Test
     public void deveLancarExcecaoAoRealizarRequisicaoInvalida() {
         String moeda = "ROD";
-        ConversaoMoedaException exception = assertThrows(ConversaoMoedaException.class, () -> {
-            cotacao.currencyConversion(moeda);
-        });
+        ConversaoMoedaException exception = assertThrows(
+                ConversaoMoedaException.class, () -> cotacao.currencyConversion(moeda)
+        );
 
         assertTrue(exception.getMessage().contains("Requisição inválida"));
         assertTrue(exception.getMessage().contains("moeda nao encontrada"));
@@ -90,8 +90,6 @@ public class CotacaoTest {
     }
 
     private ConversaoMoedaException getException(String moeda) {
-        return assertThrows(ConversaoMoedaException.class, () -> {
-            this.cotacaoWithMock.currencyConversion(moeda);
-        });
+        return assertThrows(ConversaoMoedaException.class, () -> this.cotacaoWithMock.currencyConversion(moeda));
     }
 }

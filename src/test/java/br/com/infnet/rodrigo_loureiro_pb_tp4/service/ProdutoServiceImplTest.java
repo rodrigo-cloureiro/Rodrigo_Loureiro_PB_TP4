@@ -92,9 +92,9 @@ public class ProdutoServiceImplTest {
     @Test
     public void buscarPorIdDeveLancarExcecaoQuandoProdutoNaoExiste() {
         when(produtoRepository.buscarPorId(idPadrao)).thenReturn(produtoNuloPadrao);
-        ProdutoNaoEncontradoException exception = assertThrows(ProdutoNaoEncontradoException.class, () -> {
-            produtoService.buscarPorId(idPadrao);
-        });
+        ProdutoNaoEncontradoException exception = assertThrows(
+                ProdutoNaoEncontradoException.class, () -> produtoService.buscarPorId(idPadrao)
+        );
         assertEquals(String.format("Produto com ID %s não encontrado!", idPadrao), exception.getMessage());
         verify(produtoRepository, times(1)).buscarPorId(idPadrao);
     }
@@ -121,9 +121,9 @@ public class ProdutoServiceImplTest {
 
         when(produtoRepository.buscarPorNome(nome)).thenReturn(Collections.emptyList());
 
-        ProdutoNaoEncontradoException exception = assertThrows(ProdutoNaoEncontradoException.class, () -> {
-            produtoService.buscarPorNome(nome);
-        });
+        ProdutoNaoEncontradoException exception = assertThrows(
+                ProdutoNaoEncontradoException.class, () -> produtoService.buscarPorNome(nome)
+        );
         assertEquals(String.format("Produto com nome '%s' não encontrado!", nome), exception.getMessage());
     }
 
@@ -168,9 +168,9 @@ public class ProdutoServiceImplTest {
         when(produtoRepository.buscarPorId(idPadrao)).thenReturn(produtoNulo);
         when(produtoNulo.isNulo()).thenReturn(true);
 
-        ProdutoNaoEncontradoException exception = assertThrows(ProdutoNaoEncontradoException.class, () -> {
-            produtoService.editar(idPadrao, produtoRequestDTOPadrao);
-        });
+        ProdutoNaoEncontradoException exception = assertThrows(
+                ProdutoNaoEncontradoException.class, () -> produtoService.editar(idPadrao, produtoRequestDTOPadrao)
+        );
         assertEquals(String.format("Produto com ID %s não encontrado!", idPadrao), exception.getMessage());
     }
 
@@ -193,9 +193,9 @@ public class ProdutoServiceImplTest {
         when(produtoRepository.buscarPorId(idInexistente)).thenReturn(produtoNulo);
         when(produtoNulo.isNulo()).thenReturn(true);
 
-        ProdutoNaoEncontradoException exception = assertThrows(ProdutoNaoEncontradoException.class, () -> {
-            produtoService.removerPorId(idInexistente);
-        });
+        ProdutoNaoEncontradoException exception = assertThrows(
+                ProdutoNaoEncontradoException.class, () -> produtoService.removerPorId(idInexistente)
+        );
         assertEquals(String.format("Produto com ID %s não encontrado!", idInexistente), exception.getMessage());
     }
 
@@ -248,15 +248,15 @@ public class ProdutoServiceImplTest {
         final String nomeFinal = "EMPTY".equals(nome) ? "" : nome;
         final String descricaoFinal = "EMPTY".equals(descricao) ? "" : descricao;
 
-        Exception exception = assertThrows(EntradaInvalidaException.class, () -> {
-            new ProdutoReal.Builder()
-                    .id(id)
-                    .nome(nomeFinal)
-                    .descricao(descricaoFinal)
-                    .preco(preco)
-                    .quantidade(quantidade)
-                    .build();
-        });
+        Exception exception = assertThrows(
+                EntradaInvalidaException.class, () -> new ProdutoReal.Builder()
+                        .id(id)
+                        .nome(nomeFinal)
+                        .descricao(descricaoFinal)
+                        .preco(preco)
+                        .quantidade(quantidade)
+                        .build()
+        );
         System.out.println(exception.getMessage());
     }
 
@@ -273,9 +273,9 @@ public class ProdutoServiceImplTest {
             "select id from produtos",
     })
     public void buscarPorNomeDeveFalharComEntradaMaliciosa(String entradaMaliciosa) {
-        EntradaInvalidaException exception = assertThrows(EntradaInvalidaException.class, () -> {
-            produtoService.buscarPorNome(entradaMaliciosa);
-        });
+        EntradaInvalidaException exception = assertThrows(
+                EntradaInvalidaException.class, () -> produtoService.buscarPorNome(entradaMaliciosa)
+        );
         assertEquals("O conteúdo não é permitido.", exception.getMessage());
         verify(produtoRepository, never()).buscarPorNome(anyString());
     }

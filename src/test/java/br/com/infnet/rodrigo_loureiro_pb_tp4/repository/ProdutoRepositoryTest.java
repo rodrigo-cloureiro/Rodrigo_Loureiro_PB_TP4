@@ -128,9 +128,9 @@ public class ProdutoRepositoryTest {
                 .preco(preco)
                 .quantidade(2)
                 .build();
-        ProdutoNaoEncontradoException exception = assertThrows(ProdutoNaoEncontradoException.class, () -> {
-            produtoRepository.editar(idInexistente, atualizado);
-        });
+        ProdutoNaoEncontradoException exception = assertThrows(
+                ProdutoNaoEncontradoException.class, () -> produtoRepository.editar(idInexistente, atualizado)
+        );
 
         assertNotNull(exception);
         assertEquals("Produto com ID " + idInexistente + " não encontrado!", exception.getMessage());
