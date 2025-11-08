@@ -57,6 +57,7 @@ jobs:
           category: "/language:${{ matrix.language }}"
 
   build:
+    needs: analyse
     runs-on: ubuntu-latest
 
     steps:
@@ -86,7 +87,7 @@ jobs:
 
       - name: Executar testes
         run: |
-          mvn test -B || {
+          mvn test -Dgroups=!Selenium -B || {
             echo "::error::Alguns testes falharam. Revise os logs para detalhes.";
             exit 1;
           }

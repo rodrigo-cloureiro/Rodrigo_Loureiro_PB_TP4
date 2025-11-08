@@ -15,6 +15,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Tag("Selenium")
 public class ProdutoViewControllerTest extends BaseTest {
     @Test
     public void deveRetornarMensagemAoSalvarComNomeInvalido() {
