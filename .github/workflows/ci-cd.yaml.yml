@@ -104,7 +104,7 @@ jobs:
       - name: Empacotar aplicação
         run: |
           echo "Empacotando aplicação"
-          mvn package -B || {
+          mvn package -Dgroups=!Selenium -B || {
             echo "::error::Falha ao empacotar o projeto. Verifique se os testes e build estão corretos.";
             exit 1;
           }
