@@ -4,8 +4,6 @@ import br.com.infnet.rodrigo_loureiro_pb_tp4.core.BaseTest;
 import br.com.infnet.rodrigo_loureiro_pb_tp4.pages.HomePage;
 import br.com.infnet.rodrigo_loureiro_pb_tp4.pages.ProdutoPage;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -57,9 +55,8 @@ public class ProdutoViewControllerTest extends BaseTest {
         assertEquals("Quantidade não pode ser negativa.", mensagemErro);
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {"-50", "null"}, nullValues = {"null"})
-    public void deveRetornarMensagemAoSalvarComPrecoInvalido(String preco) {
+    @Test
+    public void deveRetornarMensagemAoSalvarComPrecoInvalido() {
         String mensagemErro = new HomePage(driver)
                 .abrir()
                 .preencherNome("Nome")
@@ -99,7 +96,7 @@ public class ProdutoViewControllerTest extends BaseTest {
     }
 
     @Test
-    public void deveRetonarPaginaProdutoNaoEncontrado() {
+    public void deveRetornarPaginaProdutoNaoEncontrado() {
         String id = "e5256b50-c2ab-42d4-8c00-232cce1cda8c";
 
         ProdutoPage produtoPage = new ProdutoPage(driver)

@@ -17,7 +17,6 @@ public class BaseTest {
 
         ChromeOptions options = new ChromeOptions()
                 .addArguments("--incognito")
-//                .addArguments("--start-maximized");
                 .addArguments("--headless=new")
                 .addArguments("--no-sandbox")
                 .addArguments("--disable-dev-shm-usage")

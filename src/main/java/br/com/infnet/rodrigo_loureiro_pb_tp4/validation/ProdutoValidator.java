@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public final class ProdutoValidator {
     private static final Pattern ALPHA_NUM_ASCII = Pattern.compile("^[\\p{L}0-9\\s,\\-().!]+$");
-    private static final Pattern SQLI_LIKE = Pattern.compile(
+    private static final Pattern SQL_LIKE = Pattern.compile(
             "(?i)\\b(select|insert|update|delete|drop|union|alter|create|truncate|exec|declare|grant|revoke)\\b"
                     + "|(--|#|/\\*|\\*/|;|\\bOR\\b\\s+\\d+\\s*=\\s*\\d+|\\bAND\\b\\s+\\d+\\s*=\\s*\\d+|\\b1=1\\b|\\bOR\\b\\s+'1'='1')"
     );
@@ -28,7 +28,7 @@ public final class ProdutoValidator {
             throw new EntradaInvalidaException("O campo " + campo + " é muito longo");
         }
 
-        if (!ALPHA_NUM_ASCII.matcher(valor).matches() || SQLI_LIKE.matcher(valor.toLowerCase()).find()) {
+        if (!ALPHA_NUM_ASCII.matcher(valor).matches() || SQL_LIKE.matcher(valor.toLowerCase()).find()) {
             throw new EntradaInvalidaException("O conteúdo não é permitido.");
         }
     }

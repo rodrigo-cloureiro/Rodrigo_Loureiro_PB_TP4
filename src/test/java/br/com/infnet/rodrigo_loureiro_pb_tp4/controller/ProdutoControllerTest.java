@@ -106,7 +106,7 @@ public class ProdutoControllerTest {
     }
 
     @Test
-    public void deveRetornarRespostaExecaoAoBuscarProdutoPorIdInexistente() {
+    public void deveRetornarRespostaExcecaoAoBuscarProdutoPorIdInexistente() {
         when(produtoServiceMock.buscarPorId(idInexistente)).thenThrow(
                 new ProdutoNaoEncontradoException("Produto com ID " + idInexistente + " não encontrado!")
         );
@@ -140,7 +140,7 @@ public class ProdutoControllerTest {
     }
 
     @Test
-    public void deveRetornarRespostaExcecaoAoBuscarprodutoPorNomeInexistente() {
+    public void deveRetornarRespostaExcecaoAoBuscarProdutoPorNomeInexistente() {
         String busca = "Rodrigo";
 
         when(produtoServiceMock.buscarPorNome(busca)).thenThrow(
