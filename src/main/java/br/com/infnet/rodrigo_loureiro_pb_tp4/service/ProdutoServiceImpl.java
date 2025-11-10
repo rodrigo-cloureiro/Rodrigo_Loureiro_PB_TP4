@@ -60,10 +60,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public ProdutoDTO editar(UUID id, ProdutoRequestDTO request) {
-        Produto produtoExistente = produtoRepository.buscarPorId(id);
-        if (produtoExistente.isNulo())
-            throw new ProdutoNaoEncontradoException("Produto com ID " + id + " não encontrado!");
-
+        buscarPorId(id);
         Produto produtoEditado = produtoMapper.paraProduto(id, request);
         produtoRepository.editar(id, produtoEditado);
         return produtoMapper.paraProdutoDTO(produtoEditado);
@@ -71,10 +68,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public void removerPorId(UUID id) {
-        Produto produtoExistente = produtoRepository.buscarPorId(id);
-        if (produtoExistente.isNulo())
-            throw new ProdutoNaoEncontradoException("Produto com ID " + id + " não encontrado!");
-
+        buscarPorId(id);
         produtoRepository.removerPorId(id);
     }
 }
