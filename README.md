@@ -1,27 +1,101 @@
-# Getting Started
+# 🧩 Projeto
 
-### Reference Documentation
+## 🚀 Visão Geral
 
-For further reference, please consider the following sections:
+Este projeto é uma aplicação Java Spring Boot integrada com pipelines automatizados via GitHub Actions.
+O objetivo é fornecer uma base sólida para desenvolvimento, testes e deploy contínuo.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.5.6/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.5.6/maven-plugin/build-image.html)
-* [Spring Web](https://docs.spring.io/spring-boot/3.5.6/reference/web/servlet.html)
+## 🏗️ Como Executar a Aplicação
 
-### Guides
+### ✅ Pré-requisitos
 
-The following guides illustrate how to use some features concretely:
+- Java 21+
+- Maven 3.5.6
+- Git
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+### 💻 Como executar a aplicação
 
-### Maven Parent overrides
+#### 1. Clonar o repositório
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+```bash
+git clone https://github.com/rodrigo-cloureiro/Rodrigo_Loureiro_PB_TP4
+cd Rodrigo_Loureiro_PB_TP4
+```
+
+#### 2. Compilar e executar
+
+```bash
+mvn spring-boot:run
+```
+
+#### 3. Acessar a aplicação
+
+```bash
+http://localhost:8080
+```
+
+### ▶️ Como executar e interpretar o workflow
+
+O workflow é acionado automaticamente nos seguintes eventos:
+
+| Evento              | Descrição                                      |
+|---------------------|------------------------------------------------|
+| `push`              | Quando há push no branch `main`                |
+| `pull_request`      | Ao abrir ou atualizar PRs para o branch `main` |
+| `workflow_dispatch` | Execução manual pelo GitHub                    |
+
+A pipeline CI/CD está descrita no arquivo *.github/workflows/ci.yml* e é composta por três jobs principais:
+
+### 🧠 1. analyse — Análise com CodeQL
+
+Realiza a análise estática de segurança e qualidade do código.
+
+### Etapas principais:
+
+- Checkout do código
+- Configuração do ambiente (JDK 21)
+- Inicialização do CodeQL
+- Compilação do projeto
+- Execução da análise CodeQL
+
+### Resultado esperado:
+
+Identificar vulnerabilidades e problemas de qualidade no código. Os resultados podem ser visualizados na aba Security →
+Code scanning alerts do GitHub.
+
+### 🏗️ 2. build — Build e Testes
+
+Executa o build da aplicação e gera os artefatos (.jar).
+
+### Etapas principais:
+
+- Compilação do projeto
+- Execução de testes unitários (exceto testes Selenium)
+- Geração de relatório de cobertura (JaCoCo)
+- Upload dos artefatos (relatório e .jar)
+
+### Relatórios disponíveis:
+
+- target/site/jacoco/index.html — relatório de cobertura de testes
+- target/*.jar — pacote final da aplicação
+
+### Interpretação:
+
+Caso o build ou os testes falhem, o workflow exibirá mensagens de erro no log da execução.
+
+### 🚀 3. deploy — Simulação de Deploy
+
+Simula o processo de deploy usando o artefato gerado no job anterior.
+
+### Etapas principais:
+
+- Download do artefato .jar
+- Simulação do deploy
+- Finalização do processo
+
+### Objetivo:
+
+Garantir que o fluxo de build → artefato → deploy esteja funcional, ainda que o deploy real não ocorra.
+
+## 🛠️ Refatoração
 
